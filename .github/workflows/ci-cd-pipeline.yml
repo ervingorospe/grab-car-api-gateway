@@ -58,6 +58,6 @@ jobs:
       - name: Configure Kubectl
         run: |
           gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER_NAME }} --zone ${{ secrets.GKE_CLUSTER_ZONE }} --project ${{ secrets.GCP_PROJECT_ID }}
-
+          kubectl get deployments
 #      - name: Deploy API Gateway to GKE
 #        run: kubectl apply -f deployment.yml
