@@ -67,10 +67,10 @@ jobs:
           curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv5.4.3/kustomize_v5.4.3_linux_amd64.tar.gz
           chmod u+x ./kustomize
 
-#      - name: Set Project
-#        run: |
-#          gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
-#          gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER_NAME }} --zone ${{ secrets.GKE_CLUSTER_ZONE }}
+      - name: Set Project
+        run: |
+          gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
+          gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER_NAME }} --zone ${{ secrets.GKE_CLUSTER_ZONE }}
 #
 #      - name: Deploy to GKE
 #        run: |
