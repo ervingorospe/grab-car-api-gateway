@@ -50,23 +50,20 @@ jobs:
         with:
           credentials_json: ${{ secrets.GCP_SA_KEY }}
 
-      - name: Install Google Cloud CLI (Manual without Plugin)
-        run: |
-          sudo apt update
-          sudo apt install apt-transport-https ca-certificates gnupg curl -y
-          echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-          curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo tee /usr/share/keyrings/cloud.google.gpg > /dev/null
-          sudo apt update && sudo apt install google-cloud-cli -y
-
-      - name: Authenticate Google Cloud
-        run: |
-          echo '${{ secrets.GCP_SA_KEY }}' > gcp-key.json
-          gcloud auth activate-service-account --key-file=gcp-key.json
-          gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
-
-      - name: Configure Kubectl
+      - name: Configure GKE Cluster
         run: |
           gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER_NAME }} --zone ${{ secrets.GKE_CLUSTER_ZONE }} --project ${{ secrets.GCP_PROJECT_ID }}
-          kubectl get deployments
-#      - name: Deploy API Gateway to GKE
-#        run: kubectl apply -f deployment.yml
+
+      - name: Deploy API Gateway using Google Cloud CLI
+        run: |
+          gcloud container clusters describe ${{ secrets.GKE_CLUSTER_NAME }} --zone ${{ secrets.GKE_CLUSTER_ZONE }}
+          gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER_NAME }} --zone ${{ secrets.GKE_CLUSTER_ZONE }} --project ${{ secrets.GCP_PROJECT_ID }}
+          gcloud container clusters update ${{ secrets.GKE_CLUSTER_NAME }} --zone ${{ secrets.GKE_CLUSTER_ZONE }} --update-labels=app=grab-api-gateway
+          gcloud container clusters update ${{ secrets.GKE_CLUSTER_NAME }} --zone ${{ secrets.GKE_CLUSTER_ZONE }} --update-addons=HttpLoadBalancing=ENABLED
+          gcloud container clusters update ${{ secrets.GKE_CLUSTER_NAME }} --zone ${{ secrets.GKE_CLUSTER_ZONE }} --update-addons=GcpFilestoreCsiDriver=ENABLED
+          gcloud container clusters update ${{ secrets.GKE_CLUSTER_NAME }} --zone ${{ secrets.GKE_CLUSTER_ZONE }} --update-addons=NodeLocalDNS=ENABLED
+
+      - name: Apply Deployment
+        run: |
+          gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER_NAME }} --zone ${{ secrets.GKE_CLUSTER_ZONE }} --project ${{ secrets.GCP_PROJECT_ID }}
+          gcloud container kubectl apply --cluster=${{ secrets.GKE_CLUSTER_NAME }} --zone=${{ secrets.GKE_CLUSTER_ZONE }} --project=${{ secrets.GCP_PROJECT_ID }} -f deployment.yml
