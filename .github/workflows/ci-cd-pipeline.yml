@@ -52,7 +52,7 @@ jobs:
 
       - name: Install GKE Auth Plugin
         run: |
-          apt-get install google-cloud-sdk-gke-gcloud-auth-plugin
+          yum install google-cloud-sdk-gke-gcloud-auth-plugin
 
       - name: Configure Kubectl
         run: |
