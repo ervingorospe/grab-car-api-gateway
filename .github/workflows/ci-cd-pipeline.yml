@@ -57,7 +57,9 @@ jobs:
 
       - name: Configure Kubectl
         run: |
-          export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+          echo "${{ secrets.GCP_SA_KEY }}" > gcp-key.json
+          export GOOGLE_APPLICATION_CREDENTIALS=gcp-key.json
+          gcloud auth activate-service-account --key-file=gcp-key.json
           gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER_NAME }} --zone ${{ secrets.GKE_CLUSTER_ZONE }} --project ${{ secrets.GCP_PROJECT_ID }}
 
       - name: Deploy API Gateway to GKE
