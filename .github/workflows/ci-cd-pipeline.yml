@@ -53,7 +53,7 @@ jobs:
       - name: Install GKE Auth Plugin
         run: |
           sudo apt-get update
-          sudo apt-get install google-cloud-cli-gke-gcloud-auth-plugi
+          sudo apt-get install google-cloud-cli-gke-gcloud-auth-plugin
           export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 
       - name: Configure Kubectl
