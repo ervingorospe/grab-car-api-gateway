@@ -50,10 +50,10 @@ jobs:
         with:
           credentials_json: ${{ secrets.GCP_SA_KEY }}
 
-#      - name: Install GKE Auth Plugin
-#          run: |
-#            sudo apt-get update
-#            sudo apt-get install -y google-cloud-sdk-gke-gcloud-auth-plugin
+      - name: Install GKE Auth Plugin
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y google-cloud-sdk-gke-gcloud-auth-plugin
 
       - name: Configure Kubectl
         run: |
