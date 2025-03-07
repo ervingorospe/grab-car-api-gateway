@@ -64,8 +64,8 @@ jobs:
       # Set up kustomize
       - name: Install gke-gcloud-auth-plugin
         run: |
-          gcloud components install gke-gcloud-auth-plugin
-          gcloud components update
+          sudo apt-get update
+          sudo apt-get install google-cloud-cli-gke-gcloud-auth-plugin
 
       - name: Set Project
         run: |
