@@ -50,20 +50,13 @@ jobs:
         with:
           credentials_json: ${{ secrets.GCP_SA_KEY }}
 
-      - name: Configure GKE Cluster
+      - name: Install GKE Auth Plugin
         run: |
-          gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER_NAME }} --zone ${{ secrets.GKE_CLUSTER_ZONE }} --project ${{ secrets.GCP_PROJECT_ID }}
+          gcloud components install gke-gcloud-auth-plugin
 
-      - name: Deploy API Gateway using Google Cloud CLI
-        run: |
-          gcloud container clusters describe ${{ secrets.GKE_CLUSTER_NAME }} --zone ${{ secrets.GKE_CLUSTER_ZONE }}
-          gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER_NAME }} --zone ${{ secrets.GKE_CLUSTER_ZONE }} --project ${{ secrets.GCP_PROJECT_ID }}
-          gcloud container clusters update ${{ secrets.GKE_CLUSTER_NAME }} --zone ${{ secrets.GKE_CLUSTER_ZONE }} --update-labels=app=grab-api-gateway
-          gcloud container clusters update ${{ secrets.GKE_CLUSTER_NAME }} --zone ${{ secrets.GKE_CLUSTER_ZONE }} --update-addons=HttpLoadBalancing=ENABLED
-          gcloud container clusters update ${{ secrets.GKE_CLUSTER_NAME }} --zone ${{ secrets.GKE_CLUSTER_ZONE }} --update-addons=GcpFilestoreCsiDriver=ENABLED
-          gcloud container clusters update ${{ secrets.GKE_CLUSTER_NAME }} --zone ${{ secrets.GKE_CLUSTER_ZONE }} --update-addons=NodeLocalDNS=ENABLED
-
-      - name: Apply Deployment
+      - name: Configure Kubectl
         run: |
           gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER_NAME }} --zone ${{ secrets.GKE_CLUSTER_ZONE }} --project ${{ secrets.GCP_PROJECT_ID }}
-          gcloud container kubectl apply --cluster=${{ secrets.GKE_CLUSTER_NAME }} --zone=${{ secrets.GKE_CLUSTER_ZONE }} --project=${{ secrets.GCP_PROJECT_ID }} -f deployment.yml
+          kubectl get deployments
+#      - name: Deploy API Gateway to GKE
+#        run: kubectl apply -f deployment.yml
