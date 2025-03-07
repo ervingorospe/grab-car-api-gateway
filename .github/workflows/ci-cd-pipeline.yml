@@ -62,10 +62,10 @@ jobs:
           workload_identity_provider: '${{ env.WORKLOAD_IDENTITY_PROVIDER }}'
 
       # Set up kustomize
-      - name: 'Set up Kustomize'
-        run: |-
-          curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv5.4.3/kustomize_v5.4.3_linux_amd64.tar.gz
-          chmod u+x ./kustomize
+      - name: Install gke-gcloud-auth-plugin
+        run: |
+          gcloud components install gke-gcloud-auth-plugin
+          gcloud components update
 
       - name: Set Project
         run: |
@@ -74,7 +74,6 @@ jobs:
 
       - name: Deploy to GKE
         run: |
-          ./kustomize edit set image LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY/IMAGE:TAG=${{ secrets.GKE_CLUSTER_ZONE }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/ervincode/grab-api-gateway:latest
-          ./kustomize build . | kubectl apply -f -
+          kubectl apply -f deployment.yml
           kubectl rollout status deployment/$DEPLOYMENT_NAME
           kubectl get services -o wide
