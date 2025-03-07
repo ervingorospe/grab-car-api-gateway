@@ -50,18 +50,11 @@ jobs:
         with:
           credentials_json: ${{ secrets.GCP_SA_KEY }}
 
-      - name: Install Google Cloud CLI
+      - name: Install GKE Auth Plugin Manually
         run: |
-          sudo apt-get update
-          sudo apt-get install google-cloud-cli
-
-      - name: Configure Google Cloud Project
-        run: gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
-
-      - name: Authenticate with Service Account
-        run: |
-          echo '${{ secrets.GCP_SA_KEY }}' > gcp-key.json
-          gcloud auth activate-service-account --key-file=gcp-key.json
+          export ARCH=$(dpkg --print-architecture)
+          curl -LO "https://packages.cloud.google.com/apt/pool/gke-gcloud-auth-plugin_0.6.14-1_${ARCH}.deb"
+          sudo dpkg -i "gke-gcloud-auth-plugin_0.6.14-1_${ARCH}.deb"
 
       - name: Configure Kubectl
         run: |
