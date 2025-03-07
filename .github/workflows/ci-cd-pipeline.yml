@@ -61,13 +61,9 @@ jobs:
         with:
           workload_identity_provider: '${{ env.WORKLOAD_IDENTITY_PROVIDER }}'
 
-      - name: 'Set up Kustomize'
-        run: |-
-          curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv5.4.3/kustomize_v5.4.3_linux_amd64.tar.gz
-          chmod u+x ./kustomize
-
       - name: Deploy to GKE
         run: |
+          gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER_NAME }} --zone ${{ secrets.GKE_CLUSTER_ZONE }}
           kubectl apply -f deployment.yml
-          kubectl rollout status deployment grab-api-gateway
+          kubectl rollout status deployment/${DEPLOYMENT_NAME}
           kubectl get services -o wide
