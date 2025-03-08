@@ -84,4 +84,5 @@ jobs:
 
       - name: Deploy to GKE
         run: |
+          kubectl get namespace $GKE_NAMESPACE || kubectl create namespace $GKE_NAMESPACE
           kubectl apply -f k8s/deployment.yml -n $GKE_NAMESPACE
