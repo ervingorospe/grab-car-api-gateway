@@ -53,15 +53,9 @@ Thumbs.db
 ### JWT Secrets ###
 *.env
 *.properties
-application.yml
-application.properties
 
 
 ### Jar Files ###
 *.jar
-
-### Config Files ###
-src/main/**/application.yml
-src/main/**/application.properties
 
 

@@ -1,0 +1,12 @@
+server:
+  port: ${PORT}
+
+spring:
+  application:
+    name: grab-api-gateway
+  config:
+    activate:
+      on-profile: default
+
+jwt:
+  secret: ${JWT_SECRET}
