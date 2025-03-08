@@ -70,5 +70,5 @@ jobs:
       - name: Deploy to GKE
         run: |
           kubectl apply -f k8s/deployment.yml -n $GKE_NAMESPACE
-         kubectl rollout status deployment/$DEPLOYMENT_NAME -n $GKE_NAMESPACE
-         kubectl get services -n $GKE_NAMESPACE -o wide
+          kubectl rollout status deployment/$DEPLOYMENT_NAME -n $GKE_NAMESPACE
+          kubectl get services -n $GKE_NAMESPACE -o wide
