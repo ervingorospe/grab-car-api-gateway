@@ -79,9 +79,6 @@ jobs:
       - name: Install GKE Auth Plugin
         run: sudo apt-get install -y google-cloud-sdk-gke-gcloud-auth-plugin
 
-      - name: Set GKE Auth Plugin Environment Variable
-        run: echo "USE_GKE_GCLOUD_AUTH_PLUGIN=True" >> $GITHUB_ENV
-
       - name: Deploy to GKE
         run: |
           kubectl get namespace $GKE_NAMESPACE || kubectl create namespace $GKE_NAMESPACE
