@@ -64,6 +64,7 @@ jobs:
 
       - name: Set Project
         run: |
+          export USE_GKE_GCLOUD_AUTH_PLUGIN=True
           gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
           gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER_NAME }} --zone ${{ secrets.GKE_CLUSTER_ZONE }}
 
