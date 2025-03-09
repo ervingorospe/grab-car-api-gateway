@@ -23,16 +23,16 @@ public class ApiGatewayConfig {
         return builder.routes()
                 .route(r -> r
                         .path("/auth/**")
-                        .uri("http://localhost:9000")
+                        .uri("http://grab-auth-service:9000")
                 )
                 .route(r -> r
                         .path("/test/**")
                         .filters(f -> f.filter(jwtFilter))
-                        .uri("http://localhost:9000")
+                        .uri("http://grab-auth-service:9000")
                 )
                 .route(r -> r
                         .path("/api/user/**")
-                        .uri("http://localhost:8000")
+                        .uri("http://grab-user-service:8000")
                 )
                 .build();
     }
