@@ -4,7 +4,7 @@ metadata:
   labels:
     app: grab-api-gateway
   name: grab-api-gateway
-  namespace: grab-api-gateway
+  namespace: grab-car
 spec:
   replicas: 1
   selector:
@@ -51,7 +51,7 @@ metadata:
   labels:
     app: grab-api-gateway
   name: grab-api-gateway
-  namespace: grab-api-gateway
+  namespace: grab-car
 spec:
   ports:
     - port: 9090

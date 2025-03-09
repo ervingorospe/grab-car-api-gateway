@@ -8,8 +8,7 @@ on:
       - main
 
 env:
-  GKE_NAMESPACE: 'grab-api-gateway'
-  DEPLOYMENT_NAME: 'grab-api-gateway'
+  GKE_NAMESPACE: 'grab-car'
 
 jobs:
   build:
