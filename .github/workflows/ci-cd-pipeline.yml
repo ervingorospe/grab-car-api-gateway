@@ -38,21 +38,20 @@ jobs:
 
       - name: Build Docker Image
         run: |
-          IMAGE_TAG=$(git rev-parse --short HEAD)
+          IMAGE_TAG=${{ github.sha }}
           docker build -t $IMAGE_NAME:$IMAGE_TAG .
           docker tag $IMAGE_NAME:$IMAGE_TAG $IMAGE_NAME:latest
 
       - name: Push Docker Image
         run: |
-          IMAGE_TAG=$(git rev-parse --short HEAD)
+          IMAGE_TAG=${{ github.sha }}
           docker push $IMAGE_NAME:$IMAGE_TAG
           docker push $IMAGE_NAME:latest
 
       - name: Set Image Tag for Deployment
         run: |
-          IMAGE_TAG=$(git rev-parse --short HEAD)
+          IMAGE_TAG=${{ github.sha }}
           sed -i "s|image: .*|image: $IMAGE_NAME:$IMAGE_TAG|" k8s/deployment.yml
-          shell: bash
 
       - name: Upload Deployment Manifest
         uses: actions/upload-artifact@v4
