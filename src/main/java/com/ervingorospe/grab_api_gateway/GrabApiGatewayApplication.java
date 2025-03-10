@@ -26,5 +26,4 @@ public class GrabApiGatewayApplication {
 
 		SpringApplication.run(GrabApiGatewayApplication.class, args);
 	}
-
 }
