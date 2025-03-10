@@ -99,6 +99,12 @@ jobs:
       - name: Install GKE Auth Plugin
         run: sudo apt-get install -y google-cloud-sdk-gke-gcloud-auth-plugin
 
+      - name: Download Updated Deployment Manifest
+        uses: actions/download-artifact@v4
+        with:
+          name: deployment-manifest
+          path: k8s
+
       - name: Debug Deployment YAML
         run: cat k8s/deployment.yml
 
