@@ -1,6 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
   labels:
     app: grab-api-gateway
   name: grab-api-gateway
