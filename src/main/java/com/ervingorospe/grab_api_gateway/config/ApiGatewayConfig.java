@@ -2,7 +2,6 @@ package com.ervingorospe.grab_api_gateway.config;
 
 import com.ervingorospe.grab_api_gateway.config.security.JwtFilter;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
@@ -39,6 +38,7 @@ public class ApiGatewayConfig {
                 )
                 .route(r -> r
                         .path("/api/user/**")
+                        .filters(f -> f.filter(jwtFilter))
                         .uri(userServiceUrl)
                 )
                 .build();
