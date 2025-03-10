@@ -23,7 +23,7 @@ spec:
         app: grab-api-gateway
     spec:
       containers:
-        - image: ervincode/grabcar-api-gateway:PLACEHOLDER_TAG
+        - image: ervincode/grabcar-api-gateway:${IMAGE_TAG}
           imagePullPolicy: Always
           name: grabcar-api-gateway
           env:
