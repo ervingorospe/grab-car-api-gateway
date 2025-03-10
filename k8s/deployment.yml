@@ -8,7 +8,7 @@ metadata:
   name: grab-api-gateway
   namespace: grab-car
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: grab-api-gateway
