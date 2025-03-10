@@ -42,15 +42,6 @@ spec:
                 secretKeyRef:
                   name: jwt-secrets
                   key: JWT_SECRET
-          readinessProbe:
-            httpGet:
-              port: 9090
-              path: /actuator/health/readiness
-            livelinessProbe:
-              httpGet:
-                port: 9090
-                path: /actuator/health/liveliness
-            restartPolicy: Always
 
 ---
 #services
