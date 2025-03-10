@@ -51,7 +51,7 @@ jobs:
       - name: Set Image Tag for Deployment
         run: |
           IMAGE_TAG=${{ github.sha }}
-          sed -i "s|image: .*|image: $IMAGE_NAME:$IMAGE_TAG|" k8s/deployment.yml
+          sed -i "s|image: $IMAGE_NAME:PLACEHOLDER_TAG|image: $IMAGE_NAME:$IMAGE_TAG|" k8s/deployment.yml
 
       - name: Upload Deployment Manifest
         uses: actions/upload-artifact@v4
