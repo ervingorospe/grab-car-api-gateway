@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
         - image: ervincode/grabcar-api-gateway:v1.0.1
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           name: grabcar-api-gateway
           env:
             - name: ENV
