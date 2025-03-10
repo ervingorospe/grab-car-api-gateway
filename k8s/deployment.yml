@@ -42,6 +42,16 @@ spec:
                 secretKeyRef:
                   name: jwt-secrets
                   key: JWT_SECRET
+            - name: AUTH_SERVICE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: grab-urls
+                  key: AUTH_SERVICE_URL
+            - name: USER_SERVICE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: grab-urls
+                  key: USER_SERVICE_URL
 
 ---
 #services

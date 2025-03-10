@@ -10,3 +10,6 @@ spring:
 
 jwt:
   secret: ${JWT_SECRET}
+
+authServiceUrl: ${AUTH_SERVICE_URL}
+userServiceUrl: ${USER_SERVICE_URL}
