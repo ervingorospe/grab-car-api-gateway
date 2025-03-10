@@ -27,7 +27,7 @@ public class ApiGatewayConfig {
                 )
                 .route(r -> r
                         .path("/test/**")
-                        .filters(f -> f.filter(jwtFilter))
+//                        .filters(f -> f.filter(jwtFilter))
                         .uri("http://grab-auth-service:9000")
                 )
                 .route(r -> r
