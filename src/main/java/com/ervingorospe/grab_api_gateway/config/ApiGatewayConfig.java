@@ -33,7 +33,7 @@ public class ApiGatewayConfig {
                 )
                 .route(r -> r
                         .path("/test/**")
-//                        .filters(f -> f.filter(jwtFilter))
+                        .filters(f -> f.filter(jwtFilter))
                         .uri(authServiceUrl)
                 )
                 .route(r -> r
