@@ -4,16 +4,14 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
-import lombok.Setter;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 
-@Setter
 @Component
-@ConfigurationProperties(prefix = "jwt")
 public class JwtUtil {
+    @Value("${jwt.secret}")
     private String secret;
 
     private SecretKey getSigningKey() {
