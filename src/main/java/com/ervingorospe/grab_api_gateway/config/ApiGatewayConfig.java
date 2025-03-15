@@ -29,6 +29,10 @@ public class ApiGatewayConfig {
         return builder.routes()
                 .route(r -> r
                         .path("/auth/**")
+                        .filters(f -> f.circuitBreaker(config -> config
+                                .setName("authCircuitBreaker")
+                                .setFallbackUri("forward:/fallback/auth")
+                        ))
                         .uri(authServiceUrl)
                 )
                 .route(r -> r
@@ -38,7 +42,12 @@ public class ApiGatewayConfig {
                 )
                 .route(r -> r
                         .path("/api/user/**")
-                        .filters(f -> f.filter(jwtFilter))
+                        .filters(f -> f.filter(jwtFilter)
+                                .circuitBreaker(config -> config
+                                        .setName("userCircuitBreaker")
+                                        .setFallbackUri("forward:/fallback:user")
+                                )
+                        )
                         .uri(userServiceUrl)
                 )
                 .build();
