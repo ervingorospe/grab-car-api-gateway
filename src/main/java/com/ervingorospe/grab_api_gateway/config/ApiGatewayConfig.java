@@ -15,6 +15,9 @@ public class ApiGatewayConfig {
     @Value("${userServiceUrl}")
     private String userServiceUrl;
 
+    @Value("${tokenServiceUrl}")
+    private String tokenServiceUrl;
+
     @Bean
     public RouteLocator routes(RouteLocatorBuilder builder, JwtFilter jwtFilter) {
        /*
@@ -34,6 +37,14 @@ public class ApiGatewayConfig {
                                 .setFallbackUri("forward:/fallback/auth")
                         ))
                         .uri(authServiceUrl)
+                )
+                .route(r -> r
+                        .path("/token/**")
+                        .filters(f -> f.circuitBreaker(config -> config
+                                .setName("authCircuitBreaker")
+                                .setFallbackUri("forward:/fallback/token")
+                        ))
+                        .uri(tokenServiceUrl)
                 )
                 .route(r -> r
                         .path("/test/**")

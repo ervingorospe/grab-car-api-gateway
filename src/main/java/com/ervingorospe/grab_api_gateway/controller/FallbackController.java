@@ -17,4 +17,9 @@ public class FallbackController {
     public ResponseEntity<String> userServiceFallback() {
         return ResponseEntity.status(503).body("User Service is currently unavailable. Please try again later.");
     }
+
+    @GetMapping("/token")
+    public ResponseEntity<String> tokenServiceFallback() {
+        return ResponseEntity.status(503).body("Token Service is currently unavailable. Please try again later.");
+    }
 }

@@ -13,6 +13,7 @@ jwt:
 
 authServiceUrl: ${AUTH_SERVICE_URL}
 userServiceUrl: ${USER_SERVICE_URL}
+tokenServiceUrl: ${TOKEN_SERVICE_URL}
 
 resilience4j:
   circuitbreaker:
