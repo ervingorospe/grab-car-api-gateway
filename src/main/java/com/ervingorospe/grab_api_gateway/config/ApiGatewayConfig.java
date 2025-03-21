@@ -64,19 +64,16 @@ public class ApiGatewayConfig {
                         )
                         .uri(userServiceUrl)
                 )
+                .route(r -> r
+                        .path("/api/booking/**")
+                        .filters(f -> f.filter(jwtFilter)
+                                .circuitBreaker(config -> config
+                                        .setName("bookingCircuitBreaker")
+                                        .setFallbackUri("forward:/fallback:booking")
+                                )
+                        )
+                        .uri(bookingServiceUrl)
+                )
                 .build();
-
-
-//                .route(r -> r
-//                .path("/api/booking/**")
-//                .filters(f -> f.filter(jwtFilter)
-//                        .circuitBreaker(config -> config
-//                                .setName("userCircuitBreaker")
-//                                .setFallbackUri("forward:/fallback:booking")
-//                        )
-//                )
-//                .uri(bookingServiceUrl)
-//        )
-
     }
 }

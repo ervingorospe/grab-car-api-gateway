@@ -38,3 +38,13 @@ resilience4j:
         permittedNumberOfCallsInHalfOpenState: 2    # 10 in production
         minimumNumberOfCalls: 5         # 50 in production
         automaticTransitionFromOpenToHalfOpenEnabled: true  # Auto transition
+
+      bookingCircuitBreaker:
+        slidingWindowSize: 10           # set to 200 in production
+        failureRateThreshold: 50        # Open circuit if 50% requests fail
+        slowCallRateThreshold: 50       # Consider slow calls as failures if 50% exceed threshold
+        slowCallDurationThreshold: 2s   # 3s in production
+        waitDurationInOpenState: 5s     # 20s in production
+        permittedNumberOfCallsInHalfOpenState: 2    # 10 in production
+        minimumNumberOfCalls: 5         # 50 in production
+        automaticTransitionFromOpenToHalfOpenEnabled: true  # Auto transition
