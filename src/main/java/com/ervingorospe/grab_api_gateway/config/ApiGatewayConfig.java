@@ -18,6 +18,9 @@ public class ApiGatewayConfig {
     @Value("${tokenServiceUrl}")
     private String tokenServiceUrl;
 
+    @Value("${bookingServiceUrl}")
+    private String bookingServiceUrl;
+
     @Bean
     public RouteLocator routes(RouteLocatorBuilder builder, JwtFilter jwtFilter) {
        /*
@@ -60,6 +63,16 @@ public class ApiGatewayConfig {
                                 )
                         )
                         .uri(userServiceUrl)
+                )
+                .route(r -> r
+                        .path("/api/booking/**")
+                        .filters(f -> f.filter(jwtFilter)
+                                .circuitBreaker(config -> config
+                                        .setName("userCircuitBreaker")
+                                        .setFallbackUri("forward:/fallback:booking")
+                                )
+                        )
+                        .uri(bookingServiceUrl)
                 )
                 .build();
     }

@@ -22,4 +22,9 @@ public class FallbackController {
     public ResponseEntity<String> tokenServiceFallback() {
         return ResponseEntity.status(503).body("Token Service is currently unavailable. Please try again later.");
     }
+
+    @GetMapping("/booking")
+    public ResponseEntity<String> bookingServiceFallback() {
+        return ResponseEntity.status(503).body("Booking Service is currently unavailable. Please try again later.");
+    }
 }
