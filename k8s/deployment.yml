@@ -57,6 +57,11 @@ spec:
                 secretKeyRef:
                   name: grab-urls
                   key: TOKEN_SERVICE_URL
+            - name: BOOKING_SERVICE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: grab-urls
+                  key: BOOKING_SERVICE_URL
 
 ---
 #services
